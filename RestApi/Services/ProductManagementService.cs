@@ -23,13 +23,15 @@ namespace RestApi.Services
             if (productDto.Price <= 0)
                 throw new ArgumentOutOfRangeException(nameof(productDto), "Cena musi być większa od 0.");
 
-            return MapToDto(new Product
+            var product = new Product
             {
-                Id = productDto.Id == Guid.Empty ? Guid.NewGuid() : productDto.Id,
+                Id = Guid.NewGuid(),
                 Kod = productDto.Code.Trim(),
                 Nazwa = productDto.Name.Trim(),
                 Cena = productDto.Price
-            });
+            };
+            _products.Add(product);
+            return MapToDto(product);
         }
 
         public IEnumerable<ProductDto> GetAllProducts()
