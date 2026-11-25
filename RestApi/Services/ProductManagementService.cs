@@ -42,7 +42,7 @@ namespace RestApi.Services
         public IEnumerable<ProductDto> GetProductsByName(string name)
         {
             return _products
-                .Where(x => x.Nazwa == name)
+                .Where(x => x.Nazwa.Contains(name, StringComparison.OrdinalIgnoreCase))
                 .Select(MapToDto)
                 .ToList();
         }
