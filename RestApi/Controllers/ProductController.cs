@@ -16,7 +16,7 @@ namespace RestApi.Controllers
             _productManagementService = productManagementService;
         }
         [HttpGet]
-        public ActionResult<IEnumerable<ProductDto>> GetAll([FromQuery] string name)
+        public ActionResult<IEnumerable<ProductDto>> GetAll([FromQuery] string? name)
         {
             var products = string.IsNullOrWhiteSpace(name)
             ? _productManagementService.GetAllProducts()
@@ -32,7 +32,7 @@ namespace RestApi.Controllers
                 return BadRequest("Dane produktu są wymagane.");
 
             var created = _productManagementService.Add(productDto);
-            return CreatedAtAction(nameof(GetAll), new { id = created.Id }, created);
+            return Ok(created);
         }
     }
 }
