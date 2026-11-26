@@ -7,9 +7,11 @@ namespace RestApi.Services
     public class ProductManagementService : IProductManagementService
     {
         private readonly List<Product> _products;
-        public ProductManagementService(IDefaultProductProvider productProvider)
+        private readonly ILogger<ProductManagementService> _logger;
+        public ProductManagementService(IDefaultProductProvider productProvider, ILogger<ProductManagementService> logger)
         {
             _products = productProvider.Init();
+            _logger = logger;
         }
         public ProductDto Add(ProductDto productDto)
         {
@@ -31,6 +33,7 @@ namespace RestApi.Services
                 Cena = productDto.Price
             };
             _products.Add(product);
+            _logger.LogInformation("Dodano produkt do katalogu.");
             return MapToDto(product);
         }
 
