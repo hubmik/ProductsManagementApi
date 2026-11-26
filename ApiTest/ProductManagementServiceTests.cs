@@ -1,4 +1,5 @@
 ﻿using ApiTest.Helpers;
+using Microsoft.Extensions.Logging.Abstractions;
 using RestApi.DTO;
 using RestApi.Services;
 
@@ -6,7 +7,7 @@ namespace ApiTest
 {
     public class ProductManagementServiceTests
     {
-        private static ProductManagementService CreateService() => new(new MockProductProvider());
+        private static ProductManagementService CreateService() => new(new MockProductProvider(), NullLogger<ProductManagementService>.Instance);
         private static ProductDto NewDto(string code = "N-01", string name = "Nowy", decimal price = 9.99m) =>
         new() { Code = code, Name = name, Price = price };
 
